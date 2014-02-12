@@ -1,0 +1,23 @@
+<%= simple_form_for(@order, :html => { :class => 'form-horizontal' }) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+        <h2><%= pluralize(@order.errors.count, "error") %> prohibited this product from being saved:</h2>
+        <ul>
+        <% @order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+  <% end %>
+  <div class="form-inputs">
+    <%= f.input :name, input_html: { maxlength: 40 } %>
+    <%= f.input :address, as: :text, input_html: { rows: 3, cols: 38} %>
+    <%= f.input :email, input_html: { maxlength: 40 } %>
+    <%= f.input :pay_type, collection: Order::PAYMENT_TYPES,
+                 prompt: 'Select a payment method' %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Place Order' %>
+  </div>
+<% end %>
