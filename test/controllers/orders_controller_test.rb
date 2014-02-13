@@ -12,6 +12,12 @@ class OrdersControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
+    cart = Cart.create
+    session[:cart_id] = cart.id
+    li = LineItem.create(product: products(:ruby))
+    li.cart = cart
+
+    li.save!
     get :new
     assert_response :success
   end
